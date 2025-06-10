@@ -1,111 +1,185 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EmvResellers</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px;
-      background-color: #111;
-      border-bottom: 1px solid #333;
-    }
-    header img {
-      height: 50px;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: bold;
-    }
-    .hero {
-      text-align: center;
-      padding: 100px 20px;
-    }
-    .hero h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
-    .hero p {
-      font-size: 18px;
-      color: #ccc;
-    }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px;
-    }
-    .product {
-      background-color: #111;
-      border: 1px solid #333;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-    }
-    .product h3 {
-      margin: 10px 0;
-    }
-    .product button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: gold;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #111;
-      color: #666;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Solutions</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Changed font to 'Outfit' for a different modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Outfit', sans-serif; /* Updated font family */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <img src="logo.png" alt="EmvResellers Logo" />
-    <nav>
-      <a href="#">Home</a>
-      <a href="#products">Products</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
 
-  <section class="hero">
-    <h1>Welcome to EmvResellers</h1>
-    <p>The Safe & Anonomyous way To Obtain Emv Softwares</p>
-  </section>
+    <!-- Header -->
+    <header class="bg-gray-800 shadow-lg py-4">
+        <!-- Container now uses justify-between to spread items across the header -->
+        <div class="container px-4 flex justify-between items-center">
+            <!-- Logo and Title -->
+            <div class="flex items-center space-x-2">
+                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" class="h-16 w-auto rounded-full">
+                <h1 class="text-3xl font-bold text-yellow-400">EmvResellers</h1>
+            </div>
+            <!-- Navigation alignment reset to normal right alignment -->
+            <nav> <!-- Removed ml-auto and mr-20 -->
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="text-gray-300 hover:text-yellow-400 transition duration-300">Home</a></li>
+                    <li><a href="#products" class="text-gray-300 hover:text-yellow-400 transition duration-300">Products</a></li>
+                    <li><a href="#contact" class="text-gray-300 hover:text-yellow-400 transition duration-300">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <section class="products" id="products">
-    <div class="product">
-      <h3>X2 Allilone</h3>
-      <p>X2 Allinone is a software suite for reading, writing, and managing EMV chip card data, primarily used with compatible card readers and writers.</p>
-      <button>Buy Now</button>
-    </div>
-    <div class="product">
-      <h3>Software Tool 2</h3>
-      <p>Streamline your operations with this advanced tool.</p>
-      <button>Buy Now</button>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gray-900 py-20 flex items-center justify-center text-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-950 to-gray-800 opacity-70"></div>
+        <div class="relative z-10 container mx-auto px-4">
+            <h2 class="text-5xl md:text-6xl font-extrabold text-yellow-400 leading-tight mb-4 animate-fade-in-up" contenteditable="true"> <!-- Made editable -->
+                Unlock Potential with Our Cutting-Edge Software
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up delay-200" contenteditable="true"> <!-- Made editable -->
+                Revolutionizing your workflow with powerful, intuitive, and reliable solutions.
+            </p>
+            <a href="#products" class="inline-block bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 animate-fade-in-up delay-400">
+                Explore Software
+            </a>
+        </div>
+    </section>
 
-  <footer>
-    &copy; 2025 EmvResellers All rights reserved.
-  </footer>
+    <!-- Products Section -->
+    <section id="products" class="py-16 md:py-24 bg-gray-900 flex-grow">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-yellow-400 mb-12">Our Software Solutions</h2>
+
+            <div class="grid grid-cols-1 md::grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Software Card 1: Msrx -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">Msrx</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
+                        Msrx is a comprehensive tool designed for advanced data processing and analysis. It offers unparalleled speed and accuracy, making complex tasks simple and efficient. Ideal for professionals requiring robust data handling capabilities. Click to edit this description.
+                    </p>
+                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+                        View Details
+                    </button>
+                </div>
+
+                <!-- Software Card 2: Cardpeak -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">Cardpeak</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
+                        Cardpeak provides an intuitive interface for managing various card-related operations. Its secure and user-friendly design ensures seamless transactions and data integrity. Perfect for financial and retail sectors. Click to edit this description.
+                    </p>
+                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+                        View Details
+                    </button>
+                </div>
+
+                <!-- Software Card 3: X2 Allilone -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">X2 Allilone</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
+                        X2 Allilone is engineered for high-performance computing tasks, optimizing system resources to deliver lightning-fast results. Whether for gaming, design, or scientific simulations, it boosts productivity. Click to edit this description.
+                    </p>
+                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+                        View Details
+                    </button>
+                </div>
+
+                <!-- Software Card 4: ATR Tool -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">ATR Tool</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
+                        The ATR Tool offers advanced functionalities for analyzing and managing device configurations. It simplifies complex technical processes, providing clear insights and control for system administrators. Click to edit this description.
+                    </p>
+                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+                        View Details
+                    </button>
+                </div>
+
+                <!-- Software Card 5: Arqc gen -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">Arqc gen</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
+                        Arqc gen specializes in secure data generation and encryption. It ensures the highest level of data protection while maintaining ease of use, perfect for sensitive information handling. Click to edit this description.
+                    </p>
+                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+                        View Details
+                    </button>
+                </div>
+
+                <!-- Software Card 6: Jcop English -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">Jcop English</h3> <!-- Corrected class from "3xl" to "text-3xl" -->
+                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
+                        Jcop English offers specialized utilities for language processing and translation, providing accurate and context-aware results. It's an indispensable tool for global communication and content creation. Click to edit this description.
+                    </p>
+                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+                        View Details
+                    </button>
+                </div>
+
+                <!-- Software Card 7: IST files -->
+                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">IST files</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
+                        Our IST files solution provides robust management and organization of crucial data files. It streamlines access and ensures data integrity, making file handling efficient and error-free for large datasets. Click to edit this description.
+                    </p>
+                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
+                        View Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Simple Placeholder) -->
+    <section id="contact" class="bg-gray-800 py-16 md:py-20 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-yellow-400 mb-8">Get in Touch</h2>
+            <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+                Have questions about our software or need assistance? Contact us today!
+            </p>
+            <!-- Updated button text and href for Telegram -->
+            <a href="https://t.me/EmvResellers" class="inline-block bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
+                Contact us Via Telegram
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 py-8 text-center text-gray-400">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 EmvResellers. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Simple CSS for animations (could be part of style block or separate) -->
+    <style>
+        @keyframes fadeInUpx {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUpx 0.8s ease-out forwards;
+            opacity: 0; /* Ensures it starts invisible */
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+    </style>
+
 </body>
 </html>
