@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmvResellers</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --background: #0c0c0f;
+      --background-alt: #161618;
+      --surface: #1e1e22;
+      --border: #23232b;
+      --text: #e4e4e8;
+      --text-muted: #b0b0b5;
+      --gold: #ffd700;
+      --gold-hover: #ffe066;
+      --header-bg: #121214;
+      --footer-bg: #19191d;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    header img {
+      height: 50px;
+    }
+    nav a {
+      color: var(--gold);
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--gold-hover);
+      text-shadow: 0 0 6px var(--gold), 0 0 2px #fff1;
+    }
+    .hero {
+      text-align: center;
+      padding: 100px 20px 60px 20px;
+      background: linear-gradient(180deg, var(--background-alt) 60%, var(--background) 100%);
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      color: var(--gold);
+      text-shadow: 0 2px 12px #000b, 0 0 6px var(--gold-hover);
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      padding: 40px;
+      background: var(--background-alt);
+    }
+    .product {
+      background-color: var(--surface);
+      border: 1.5px solid var(--border);
+      padding: 24px 20px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 4px 20px #0004;
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+    .product:hover {
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 8px 32px #0008, 0 0 8px var(--gold-hover);
+    }
+    .product h3 {
+      margin: 10px 0 8px 0;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+    .product p {
+      color: var(--text-muted);
+    }
+    .product button {
+      margin-top: 16px;
+      padding: 12px 28px;
+      background-color: var(--gold);
+      color: #161618;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      box-shadow: 0 2px 12px #0005;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .product button:hover {
+      background-color: var(--gold-hover);
+      color: #000;
+      box-shadow: 0 4px 24px var(--gold-hover), 0 0 8px #0007;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--footer-bg);
+      color: var(--text-muted);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="EmvResellers Logo" />
+    <nav>
+      <a href="#">Home</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to EmvResellers</h1>
+    <p>The Safe & Anonymous way To Obtain Emv Softwares</p>
+  </section>
+
+  <section class="products" id="products">
+    <div class="product">
+      <h3>X2 Allilone</h3>
+      <p>X2 Allinone is a software suite for reading, writing, and managing EMV chip card data, primarily used with compatible card readers and writers.</p>
+      <button>Buy Now</button>
+    </div>
+    <div class="product">
+      <h3>Software Tool 2</h3>
+      <p>Streamline your operations with this advanced tool.</p>
+      <button>Buy Now</button>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 EmvResellers All rights reserved.
+  </footer>
+</body>
+</html>
