@@ -3,183 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software Solutions</title>
-    <!-- Load Tailwind CSS -->
+    <title>EmvResellers</title>
+    <!-- Tailwind CSS CDN - This loads Tailwind utility classes directly -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS for global styles and animations -->
     <style>
-        /* Changed font to 'Outfit' for a different modern look */
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
         body {
-            font-family: 'Outfit', sans-serif; /* Updated font family */
+            font-family: 'Outfit', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-    </style>
-</head>
-<body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
 
-    <!-- Header -->
-    <header class="bg-gray-800 shadow-lg py-4">
-        <!-- Container now uses justify-between to spread items across the header -->
-        <div class="container px-4 flex justify-between items-center">
-            <!-- Logo and Title -->
-            <div class="flex items-center space-x-2">
-                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" class="h-16 w-auto rounded-full">
-                <h1 class="text-3xl font-bold text-yellow-400">EmvResellers</h1>
-            </div>
-            <!-- Navigation alignment reset to normal right alignment -->
-            <nav> <!-- Removed ml-auto and mr-20 -->
-                <ul class="flex space-x-6">
-                    <li><a href="#home" class="text-gray-300 hover:text-yellow-400 transition duration-300">Home</a></li>
-                    <li><a href="#products" class="text-gray-300 hover:text-yellow-400 transition duration-300">Products</a></li>
-                    <li><a href="#contact" class="text-gray-300 hover:text-yellow-400 transition duration-300">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="relative bg-gray-900 py-20 flex items-center justify-center text-center overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-950 to-gray-800 opacity-70"></div>
-        <div class="relative z-10 container mx-auto px-4">
-            <h2 class="text-5xl md:text-6xl font-extrabold text-yellow-400 leading-tight mb-4 animate-fade-in-up" contenteditable="true"> <!-- Made editable -->
-                Unlock Potential with Our Cutting-Edge Software
-            </h2>
-            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up delay-200" contenteditable="true"> <!-- Made editable -->
-                Revolutionizing your workflow with powerful, intuitive, and reliable solutions.
-            </p>
-            <a href="#products" class="inline-block bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 animate-fade-in-up delay-400">
-                Explore Software
-            </a>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="py-16 md:py-24 bg-gray-900 flex-grow">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center text-yellow-400 mb-12">Our Software Solutions</h2>
-
-            <div class="grid grid-cols-1 md::grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Software Card 1: Msrx -->
-                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">Msrx</h3>
-                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
-                        Msrx is a comprehensive tool designed for advanced data processing and analysis. It offers unparalleled speed and accuracy, making complex tasks simple and efficient. Ideal for professionals requiring robust data handling capabilities. Click to edit this description.
-                    </p>
-                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
-                        View Details
-                    </button>
-                </div>
-
-                <!-- Software Card 2: Cardpeak -->
-                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">Cardpeak</h3>
-                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
-                        Cardpeak provides an intuitive interface for managing various card-related operations. Its secure and user-friendly design ensures seamless transactions and data integrity. Perfect for financial and retail sectors. Click to edit this description.
-                    </p>
-                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
-                        View Details
-                    </button>
-                </div>
-
-                <!-- Software Card 3: X2 Allilone -->
-                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">X2 Allilone</h3>
-                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
-                        X2 Allilone is engineered for high-performance computing tasks, optimizing system resources to deliver lightning-fast results. Whether for gaming, design, or scientific simulations, it boosts productivity. Click to edit this description.
-                    </p>
-                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
-                        View Details
-                    </button>
-                </div>
-
-                <!-- Software Card 4: ATR Tool -->
-                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">ATR Tool</h3>
-                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
-                        The ATR Tool offers advanced functionalities for analyzing and managing device configurations. It simplifies complex technical processes, providing clear insights and control for system administrators. Click to edit this description.
-                    </p>
-                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
-                        View Details
-                    </button>
-                </div>
-
-                <!-- Software Card 5: Arqc gen -->
-                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">Arqc gen</h3>
-                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
-                        Arqc gen specializes in secure data generation and encryption. It ensures the highest level of data protection while maintaining ease of use, perfect for sensitive information handling. Click to edit this description.
-                    </p>
-                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
-                        View Details
-                    </button>
-                </div>
-
-                <!-- Software Card 6: Jcop English -->
-                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">Jcop English</h3> <!-- Corrected class from "3xl" to "text-3xl" -->
-                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
-                        Jcop English offers specialized utilities for language processing and translation, providing accurate and context-aware results. It's an indispensable tool for global communication and content creation. Click to edit this description.
-                    </p>
-                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
-                        View Details
-                    </button>
-                </div>
-
-                <!-- Software Card 7: IST files -->
-                <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-3xl font-semibold text-yellow-300 mb-4">IST files</h3>
-                    <p class="text-gray-300 leading-relaxed mb-6" contenteditable="true">
-                        Our IST files solution provides robust management and organization of crucial data files. It streamlines access and ensures data integrity, making file handling efficient and error-free for large datasets. Click to edit this description.
-                    </p>
-                    <button class="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
-                        View Details
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section (Simple Placeholder) -->
-    <section id="contact" class="bg-gray-800 py-16 md:py-20 text-center">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-yellow-400 mb-8">Get in Touch</h2>
-            <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-                Have questions about our software or need assistance? Contact us today!
-            </p>
-            <!-- Updated button text and href for Telegram -->
-            <a href="https://t.me/EmvResellers" class="inline-block bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
-                Contact us Via Telegram
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-950 py-8 text-center text-gray-400">
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 EmvResellers. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Simple CSS for animations (could be part of style block or separate) -->
-    <style>
+        /* Keyframes for the Hero section fade-in-up animation */
         @keyframes fadeInUpx {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+        /* Class to apply the fade-in-up animation */
         .animate-fade-in-up {
             animation: fadeInUpx 0.8s ease-out forwards;
-            opacity: 0; /* Ensures it starts invisible */
+            opacity: 0; /* Ensures the element starts invisible */
         }
+        /* Animation delays for staggered effects */
         .delay-200 { animation-delay: 0.2s; }
         .delay-400 { animation-delay: 0.4s; }
-    </style>
 
+        /* Keyframes for the notification bar fade-in-out animation */
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); } /* Start invisible, slightly above */
+            10% { opacity: 1; transform: translateY(0); }  /* Fade in and move to position */
+            90% { opacity: 1; transform: translateY(0); }  /* Stay visible for most of the duration */
+            100% { opacity: 0; transform: translateY(-20px); } /* Fade out and move up */
+        }
+        /* Class to apply the notification animation */
+        .notification-appear {
+            animation: fadeInOut 3s ease-in-out forwards; /* 3 seconds total duration */
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <div id="root"></div>
+
+    <!-- React and ReactDOM CDNs -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX transformation in the browser (for demonstration purposes only, not for production) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Your React App Code -->
+    <script type="text/babel">
+        // Main App Component
+        function App() {
+            // State to manage the shopping cart items
+            const [cart, setCart] = React.useState([]);
+            // State to control the visibility of the cart modal
+            const [isCartOpen, setIsCartOpen] = React.useState(false);
+            // State for the notification message and visibility
+            const [notification, setNotification] = React.useState({ message: '', visible: false });
+
+            // Load cart from localStorage on initial render
+            React.useEffect(() => {
+                try {
+                    const savedCart = localStorage.getItem('emvresellers_cart');
+                    if (savedCart) {
+                        setCart(JSON.parse(savedCart));
+                    }
+                } catch (error) {
+                    console.error("Failed to load cart from localStorage:", error);
+                    localStorage.removeItem('emvresellers_cart'); // Optionally, clear invalid data
+                }
+            }, []);
+
+            // Save cart to localStorage whenever it changes
+            React.useEffect(() => {
+                try {
+                    localStorage.setItem('emvresellers_cart', JSON.stringify(cart));
+                } catch (error) {
+                    console.error("Failed to save cart to localStorage:", error);
+                }
+            }, [cart]);
+
+            // Define software products with updated prices
+            const softwareProducts = [
+                {
+                    id: 'msrx',
+                    name: 'Msrx',
+                    description: 'MSRX is software used to read, write, and erase magnetic stripe card data with compatible card readers. Its legal purpose is for managing cards like hotel keys, employee IDs, and gift or access cards in business or organizational settings.',
+                    price: 0.00
+                },
+                {
+                    id: 'cardpeak',
+                    name: 'Cardpeak',
+                    description: 'CardPeak is software used to read and display data from chip-based (EMV) cards using a smart card reader. It’s typically used for testing, verifying, or analyzing card information in environments like payment development or security research.',
+                    price: 0.00
+                },
+                {
+                    id: 'x2allinone',
+                    name: 'X2 Allinone',
+                    description: 'X2 Allinone is software used to generate, edit, and manage EMV chip card data, including track data and cryptographic elements. It\'s typically used for testing and developing EMV card systems, such as verifying how chip data responds during transactions.',
+                    price: 7.99
+                },
+                {
+                    id: 'atrtool',
+                    name: 'ATR Tool',
+                    description: 'ATR Tool is software used to read and analyze the ATR (Answer to Reset) from smart cards. It helps identify the card type, supported protocols, and communication parameters, and is commonly used in smart card development, testing, and debugging.',
+                    price: 4.99
+                },
+                {
+                    id: 'arqcgen',
+                    name: 'Arqc gen',
+                    description: 'ARQC Gen is software used to generate ARQC (Authorization Request Cryptogram) values for EMV chip cards. It’s typically used for testing and simulating EMV transaction behavior in payment system development and security research.',
+                    price: 6.99
+                },
+                {
+                    id: 'jcopenglish',
+                    name: 'Jcop English',
+                    description: 'JCOP English is software used to manage and program JCOP (Java Card OpenPlatform) smart cards. It allows users to load applets, configure card settings, and personalize chip data for use in smart card development, testing, and secure application deployment.',
+                    price: 3.99
+                },
+                {
+                    id: 'istfiles',
+                    name: 'IST files',
+                    description: 'IST files are data files used to store EMV card information, such as track data, chip data, and cryptographic values. They are used in EMV software to load, manage, and simulate card profiles during card testing or development.',
+                    price: 4.99
+                },
+            ];
+
+            // Function to add an item to the cart
+            const addToCart = (product) => {
+                setCart(prevCart => {
+                    const existingItem = prevCart.find(item => item.id === product.id);
+                    if (existingItem) {
+                        return prevCart.map(item =>
+                            item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                        );
+                    } else {
+                        return [...prevCart, { ...product, quantity: 1 }];
+                    }
+                });
+                setNotification({ message: `${product.name} added to cart!`, visible: true });
+                setTimeout(() => {
+                    setNotification(prev => ({ ...prev, visible: false }));
+                }, 3000);
+            };
+
+            // Function to remove an item from the cart
+            const removeFromCart = (productId) => {
+                setCart(prevCart => prevCart.filter(item => item.id !== productId));
+            };
+
+            // Calculate total items in cart for the icon badge
+            const totalItemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
+            // Calculate total price of items in cart
+            const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+
+            return (
+                <div className="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
+                    {/* Notification Bar */}
+                    {notification.visible && (
+                        <div className="fixed top-0 left-0 w-full z-50 p-4 flex justify-center notification-appear">
+                            <div className="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-full shadow-lg">
+                                {notification.message}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Header */}
+                    <header className="bg-gray-800 shadow-lg py-4">
+                        <div className="container mx-auto px-4 flex justify-between items-center">
+                            {/* Logo and Title */}
+                            <div className="flex items-center space-x-2">
+                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" class="h-16 w-auto rounded-full" />
+                                <h1 className="text-3xl font-bold text-yellow-400">EmvResellers</h1>
+                            </div>
+                            {/* Navigation and Cart Icon */}
+                            <nav className="flex items-center space-x-6">
+                                <ul className="flex space-x-6">
+                                    <li><a href="#home" className="text-gray-300 hover:text-yellow-400 transition duration-300">Home</a></li>
+                                    <li><a href="#products" className="text-gray-300 hover:text-yellow-400 transition duration-300">Products</a></li>
+                                    <li><a href="#contact" className="text-gray-300 hover:text-yellow-400 transition duration-300">Contact</a></li>
+                                </ul>
+                                {/* Cart Icon with Item Count */}
+                                <button
+                                    onClick={() => setIsCartOpen(true)}
+                                    className="relative text-gray-300 hover:text-yellow-400 transition duration-300 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                    aria-label="View shopping cart"
+                                >
+                                    {/* Shopping cart icon (using inline SVG for simplicity) */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    {totalItemsInCart > 0 && (
+                                        <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                            {totalItemsInCart}
+                                        </span>
+                                    )}
+                                </button>
+                            </nav>
+                        </div>
+                    </header>
+
+                    {/* Hero Section */}
+                    <section id="home" className="relative bg-gray-900 py-20 flex items-center justify-center text-center overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 to-gray-800 opacity-70"></div>
+                        <div className="relative z-10 container mx-auto px-4">
+                            <h2 className="text-5xl md:text-6xl font-extrabold text-yellow-400 leading-tight mb-4 animate-fade-in-up">
+                                Unlock Potential with Our Cutting-Edge Emv Software
+                            </h2>
+                            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up delay-200">
+                                The Safe & Anonymous Way to Obtain Emv Softwares
+                            </p>
+                            <a href="#products" className="inline-block bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 animate-fade-in-up delay-400">
+                                Explore Software
+                            </a>
+                        </div>
+                    </section>
+
+                    {/* Products Section */}
+                    <section id="products" className="py-16 md:py-24 bg-gray-900 flex-grow">
+                        <div className="container mx-auto px-4">
+                            <h2 className="text-4xl font-bold text-center text-yellow-400 mb-12">Our Emv Softwares</h2>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {softwareProducts.map(product => (
+                                    <div key={product.id} className="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                                        <h3 className="text-3xl font-semibold text-yellow-300 mb-4">{product.name}</h3>
+                                        <p className="text-gray-300 leading-relaxed mb-4">{product.description}</p>
+                                        <div className="flex items-center justify-between mb-6">
+                                            <span className="text-2xl font-bold text-yellow-400">
+                                                {product.price === 0.00 ? 'Free' : `$${product.price.toFixed(2)}`}
+                                            </span>
+                                            <button
+                                                onClick={() => addToCart(product)}
+                                                className="bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-lg hover:bg-yellow-600 transition duration-300"
+                                            >
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact Section */}
+                    <section id="contact" className="bg-gray-800 py-16 md:py-20 text-center">
+                        <div className="container mx-auto px-4">
+                            <h2 className="text-4xl font-bold text-yellow-400 mb-8">Get in Touch</h2>
+                            <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+                                Have questions about our software or need assistance? Contact us today!
+                            </p>
+                            <a href="https://t.me/EmvResellers" target="_blank" rel="noopener noreferrer" className="inline-block bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
+                                Contact us Via Telegram
+                            </a>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="bg-gray-950 py-8 text-center text-gray-400">
+                        <div className="container mx-auto px-4">
+                            <p>&copy; 2025 EmvResellers. All rights reserved.</p>
+                        </div>
+                    </footer>
+
+                    {/* Cart Modal */}
+                    {isCartOpen && (
+                        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-50 p-4">
+                            <div className="bg-gray-800 rounded-lg shadow-xl w-full max-w-lg p-6 relative">
+                                <h2 className="text-3xl font-bold text-yellow-400 mb-6">Your Cart</h2>
+                                <button
+                                    onClick={() => setIsCartOpen(false)}
+                                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 transition duration-300"
+                                    aria-label="Close cart"
+                                >
+                                    {/* Close icon */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+
+                                {cart.length === 0 ? (
+                                    <p className="text-gray-400 text-lg">Your cart is empty.</p>
+                                ) : (
+                                    <>
+                                        <ul className="space-y-4 max-h-80 overflow-y-auto mb-6">
+                                            {cart.map(item => (
+                                                <li key={item.id} className="flex justify-between items-center bg-gray-700 p-3 rounded-lg">
+                                                    <div>
+                                                        <p className="text-lg font-semibold text-gray-100">{item.name} <span className="text-yellow-300">x{item.quantity}</span></p>
+                                                        <p className="text-gray-300 text-sm">
+                                                            {item.price === 0.00 ? 'Free' : `$${(item.price * item.quantity).toFixed(2)}`}
+                                                        </p>
+                                                    </div>
+                                                    <button
+                                                        onClick={() => removeFromCart(item.id)}
+                                                        className="text-red-500 hover:text-red-400 transition duration-300 p-2 rounded-full"
+                                                        aria-label={`Remove ${item.name} from cart`}
+                                                    >
+                                                        {/* Remove icon */}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 0 00-1-1h-4a1 0 00-1 1v3M4 7h16" />
+                                                        </svg>
+                                                    </button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <div className="border-t border-gray-700 pt-4 flex justify-between items-center">
+                                            <span className="text-2xl font-bold text-yellow-400">Total:</span>
+                                            <span className="text-2xl font-bold text-yellow-400">${totalPrice}</span>
+                                        </div>
+                                        <button
+                                            className="w-full bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg mt-6 hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
+                                            onClick={() => alert("Proceeding to checkout! (This is a placeholder action)")}
+                                        >
+                                            Proceed to Checkout
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Mount the React App to the 'root' div in the HTML
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
 </body>
 </html>
