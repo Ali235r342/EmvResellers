@@ -195,17 +195,21 @@
                 setCart(prevCart => {
                     const existingItem = prevCart.find(item => item.id === product.id);
                     if (existingItem) {
-                        return prevCart.map(item =>
-                            item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-                        );
+                        // Item is already in cart, prevent adding again
+                        setNotification({ message: `${product.name} is already in your cart!`, visible: true });
+                        setTimeout(() => {
+                            setNotification(prev => ({ ...prev, visible: false }));
+                        }, 3000);
+                        return prevCart; // Return previous cart state unchanged
                     } else {
+                        // Item is new, add to cart with quantity 1
+                        setNotification({ message: `${product.name} added to cart!`, visible: true });
+                        setTimeout(() => {
+                            setNotification(prev => ({ ...prev, visible: false }));
+                        }, 3000);
                         return [...prevCart, { ...product, quantity: 1 }];
                     }
                 });
-                setNotification({ message: `${product.name} added to cart!`, visible: true });
-                setTimeout(() => {
-                    setNotification(prev => ({ ...prev, visible: false }));
-                }, 3000);
             };
 
             // Function to remove an item from the cart
@@ -402,15 +406,16 @@
                         {/* Container with responsive padding for better mobile fit */}
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
                             {/* Logo and Title */}
-                            {/* Ensure logo and title are side-by-side on all screens */}
-                            <div className="flex items-center space-x-2 mb-4 sm:mb-0"> {/* Removed flex-col and text-center */}
-                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-14 sm:h-16 w-auto rounded-full" /> 
-                                <h1 className="text-2xl sm:text-3xl font-bold text-yellow-400">EmvResellers</h1> 
+                            {/* Adjusted to center title and move logo to right on mobile */}
+                            <div className="flex items-center space-x-2 mb-4 sm:mb-0 w-full sm:w-auto"> {/* Added w-full sm:w-auto */}
+                                {/* On mobile, logo is on the right, title is centered relative to available space */}
+                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-14 sm:h-16 w-auto rounded-full order-2 sm:order-none" /> {/* Logo is order-2 on mobile */}
+                                <h1 className="text-2xl sm:text-3xl font-bold text-yellow-400 flex-grow text-center order-1 sm:order-none">EmvResellers</h1> {/* Title is order-1 on mobile, flex-grow & centered */}
                             </div>
                             {/* Navigation and Cart Icon */}
                             {/* Adjusted nav to be column on small screens, row on medium+ */}
-                            <nav className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
-                                <ul className="flex space-x-4 sm:space-x-6"> 
+                            <nav className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 w-full sm:w-auto mt-4 sm:mt-0">
+                                <ul className="flex space-x-4 sm:space-x-6 w-full sm:w-auto justify-center sm:justify-start"> 
                                     <li><a href="#home" className="text-gray-300 hover:text-yellow-400 transition duration-300 text-sm sm:text-base">Home</a></li>
                                     <li><a href="#products" className="text-gray-300 hover:text-yellow-400 transition duration-300 text-sm sm:text-base">Products</a></li>
                                     <li><a href="#faq" className="text-gray-300 hover:text-yellow-400 transition duration-300 text-sm sm:text-base">FAQ</a></li>
