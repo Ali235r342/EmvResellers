@@ -195,14 +195,14 @@
                 setCart(prevCart => {
                     const existingItem = prevCart.find(item => item.id === product.id);
                     if (existingItem) {
-                        // Item is already in cart, prevent adding again
+                        // If item already in cart, DO NOT increment quantity, just show notification
                         setNotification({ message: `${product.name} is already in your cart!`, visible: true });
                         setTimeout(() => {
                             setNotification(prev => ({ ...prev, visible: false }));
                         }, 3000);
-                        return prevCart; // Return previous cart state unchanged
+                        return prevCart; // Return the existing cart state unchanged
                     } else {
-                        // Item is new, add to cart with quantity 1
+                        // If new item, add to cart with quantity 1
                         setNotification({ message: `${product.name} added to cart!`, visible: true });
                         setTimeout(() => {
                             setNotification(prev => ({ ...prev, visible: false }));
@@ -338,7 +338,7 @@
                 These Terms of Service shall be governed by and construed in accordance with the laws applicable to our jurisdiction, without regard to its conflict of law principles.
 
                 **11. Contact**
-                For any questions regarding these Terms of Service, please contact us via our Telegram channel as indicated on our website.
+                For any questions regarding these Terms of Service, please contact us via Telegram as indicated on our website.
             `;
 
             const privacyPolicyContent = `
@@ -387,7 +387,7 @@
                 We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date. We encourage you to review this policy periodically.
 
                 **10. Contact**
-                For any questions regarding this Privacy Policy or your data, please contact us via our Telegram channel as indicated on our website.
+                For any questions regarding this Privacy Policy or your data, please contact us via Telegram as indicated on our website.
             `;
 
             return (
@@ -406,11 +406,10 @@
                         {/* Container with responsive padding for better mobile fit */}
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
                             {/* Logo and Title */}
-                            {/* Adjusted to center title and move logo to right on mobile */}
-                            <div className="flex items-center space-x-2 mb-4 sm:mb-0 w-full sm:w-auto"> {/* Added w-full sm:w-auto */}
-                                {/* On mobile, logo is on the right, title is centered relative to available space */}
-                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-14 sm:h-16 w-auto rounded-full order-2 sm:order-none" /> {/* Logo is order-2 on mobile */}
-                                <h1 className="text-2xl sm:text-3xl font-bold text-yellow-400 flex-grow text-center order-1 sm:order-none">EmvResellers</h1> {/* Title is order-1 on mobile, flex-grow & centered */}
+                            {/* Adjusted to center title and move logo to left on mobile */}
+                            <div className="flex items-center justify-center sm:justify-start space-x-2 mb-4 sm:mb-0 w-full sm:w-auto"> {/* justify-center on mobile, sm:justify-start on desktop */}
+                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-14 sm:h-16 w-auto rounded-full" /> 
+                                <h1 className="text-2xl sm:text-3xl font-bold text-yellow-400">EmvResellers</h1> 
                             </div>
                             {/* Navigation and Cart Icon */}
                             {/* Adjusted nav to be column on small screens, row on medium+ */}
