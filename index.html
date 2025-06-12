@@ -334,7 +334,7 @@
                 These Terms of Service shall be governed by and construed in accordance with the laws applicable to our jurisdiction, without regard to its conflict of law principles.
 
                 **11. Contact**
-                For any questions regarding these Terms of Service, please contact us via Telegram as indicated on our website.
+                For any questions regarding these Terms of Service, please contact us via our Telegram channel as indicated on our website.
             `;
 
             const privacyPolicyContent = `
@@ -402,8 +402,9 @@
                         {/* Container with responsive padding for better mobile fit */}
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
                             {/* Logo and Title */}
-                            <div className="flex flex-col sm:flex-row items-center space-x-2 mb-4 sm:mb-0 text-center sm:text-left"> {/* Added text-center for mobile */}
-                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-14 sm:h-16 w-auto rounded-full" /> {/* Adjusted logo size */}
+                            {/* Ensure logo and title are side-by-side on all screens */}
+                            <div className="flex items-center space-x-2 mb-4 sm:mb-0"> {/* Removed flex-col and text-center */}
+                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-14 sm:h-16 w-auto rounded-full" /> 
                                 <h1 className="text-2xl sm:text-3xl font-bold text-yellow-400">EmvResellers</h1> 
                             </div>
                             {/* Navigation and Cart Icon */}
