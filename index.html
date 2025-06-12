@@ -135,8 +135,9 @@
                     description: 'CardPeak is free and open source software that is used to read and display data from chip-based (EMV) cards using a smart card reader. It’s typically used for testing, verifying, or analyzing card information in environments like payment development or security research.',
                     price: 0.00,
                     images: [
-                        'https://placehold.co/600x400/90EE90/000?text=CardPeak+Screenshot+1',
-                        'https://placehold.co/600x400/32CD32/000?text=CardPeak+Screenshot+2'
+                        'https://i.imgur.com/Tr1njo5.png', // New Cardpeak image 1
+                        'https://i.imgur.com/I7E1tV0.png', // New Cardpeak image 2
+                        'https://i.imgur.com/fHKzDKy.png'  // New Cardpeak image 3
                     ]
                 },
                 {
@@ -145,9 +146,10 @@
                     description: 'X2 Allinone is software used to generate, edit, and manage EMV chip card data, including track data and cryptographic elements. It\'s typically used for testing and developing EMV card systems, such as verifying how chip data responds during transactions.',
                     price: 7.99,
                     images: [
-                        'https://placehold.co/600x400/ADD8E6/000?text=X2+Allinone+Screenshot+1',
-                        'https://placehold.co/600x400/87CEFA/000?text=X2+Allinone+Screenshot+2',
-                        'https://placehold.co/600x400/4682B4/000?text=X2+Allinone+Screenshot+3'
+                        'https://i.imgur.com/VImciqR.png', // X2 Allinone image 1
+                        'https://i.imgur.com/6TAbQBX.png',  // X2 Allinone image 2
+                        'https://i.imgur.com/zn8oglQ.png',  // X2 Allinone image 3
+                        'https://i.imgur.com/yzY5EK5.png'   // X2 Allinone image 4
                     ]
                 },
                 {
@@ -156,8 +158,7 @@
                     description: 'ARQC Gen is software used to generate ARQC (Authorization Request Cryptogram) values for EMV chip cards. It’s typically used for testing and simulating EMV transaction behavior in payment system development and security research.',
                     price: 6.99,
                     images: [
-                        'https://placehold.co/600x400/DA70D6/000?text=ARQC+Gen+Screenshot+1',
-                        'https://placehold.co/600x400/BA55D3/000?text=ARQC+Gen+Screenshot+2'
+                        'https://i.imgur.com/B945U4Q.png' // Updated ARQC Gen image
                     ]
                 },
                 {
@@ -166,7 +167,7 @@
                     description: 'ATR Tool is software used to read and analyze the ATR (Answer to Reset) from smart cards. It helps identify the card type, supported protocols, and communication parameters, and is commonly used in smart card development, testing, and debugging.',
                     price: 4.99,
                     images: [
-                        'https://placehold.co/600x400/FFB6C1/000?text=ATR+Tool+Screenshot+1'
+                        'https://i.imgur.com/HtvRz5i.jpeg' // Updated ATR Tool image
                     ]
                 },
                 {
@@ -175,7 +176,7 @@
                     description: 'IST files are data files used to store EMV card information, such as track data, chip data, and cryptographic values. They are used in EMV software to load, manage, and simulate card profiles during card testing or development.',
                     price: 4.99,
                     images: [
-                        'https://placehold.co/600x400/DDA0DD/000?text=IST+Files+Screenshot+1'
+                        'https://i.imgur.com/Qm5FU7t.jpeg' // Updated IST Files image
                     ]
                 },
                 {
@@ -184,8 +185,7 @@
                     description: 'JCOP English is software used to manage and program JCOP smart cards. It allows users to load applets, configure card settings, and personalize chip data for use in smart card development, testing, and secure application deployment.',
                     price: 3.99,
                     images: [
-                        'https://placehold.co/600x400/FFFACD/000?text=JCOP+English+Screenshot+1',
-                        'https://placehold.co/600x400/F0E68C/000?text=JCOP+English+Screenshot+2'
+                        'https://i.imgur.com/VhjQ1lw.png' // Updated Jcop English image
                     ]
                 },
             ];
@@ -260,7 +260,7 @@
             const faqItems = [
                 {
                     question: "What types of EMV software do you offer?",
-                    answer: "We offer a range of EMV-related software including tools for reading/writing magnetic stripe data (MSRX), analyzing chip card data (CardPeak), generating EMV data (X2 Allinone), ATR analysis, ARQC generation, JCOP card management, and IST file handling."
+                    answer: "We offer tools for reading and analyzing EMV chip data, generating ARQC values, editing track and chip data, managing JCOP smart cards, and testing card behavior. These include software for development, debugging, cryptographic testing, and secure card personalization."
                 },
                 {
                     question: "How do I receive the software after purchase?",
@@ -296,7 +296,7 @@
 
 
             const termsOfServiceContent = `
-                ## EmvResellers Terms of Service
+                 EmvResellers Terms of Service
 
                 **Last Updated:** June 11, 2025
 
@@ -342,7 +342,7 @@
             `;
 
             const privacyPolicyContent = `
-                ## EmvResellers Privacy Policy
+                 EmvResellers Privacy Policy
 
                 **Last Updated:** June 11, 2025
 
@@ -366,7 +366,7 @@
 
                 * To improve our website's functionality and user experience through anonymized traffic analysis.
 
-                * To respond to direct support inquiries via our Telegram channel, where you control the information you share.
+                * To respond to direct support inquiries via our Telegram, where you control the information you share.
 
                 **4. Data Sharing and Disclosure (None)**
                 EmvResellers **does not share, sell, rent, or disclose any information (including anonymized data) with third parties** for marketing, advertising, or any other purpose. Our commitment to your anonymity means your usage data and transaction details remain with us, strictly for the purposes outlined above.
@@ -407,7 +407,7 @@
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
                             {/* Logo and Title */}
                             {/* Adjusted to center title and move logo to left on mobile */}
-                            <div className="flex items-center justify-center sm:justify-start space-x-2 mb-4 sm:mb-0 w-full sm:w-auto"> {/* justify-center on mobile, sm:justify-start on desktop */}
+                            <div className="flex items-center space-x-2 mb-4 sm:mb-0 w-full sm:w-auto justify-center"> {/* Added justify-center for mobile */}
                                 <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-14 sm:h-16 w-auto rounded-full" /> 
                                 <h1 className="text-2xl sm:text-3xl font-bold text-yellow-400">EmvResellers</h1> 
                             </div>
@@ -480,8 +480,7 @@
                                             <span className="text-xl md:text-2xl font-bold text-yellow-400 mr-4 whitespace-nowrap"> 
                                                 {product.price === 0.00 ? 'Free' : `$${product.price.toFixed(2)}`}
                                             </span>
-                                            {/* Button Container - Ensures consistent width and vertical alignment */}
-                                            {/* Adjusted to use `min-w` and `w-1/2` for responsiveness and alignment */}
+                                            {/* Button Container - Ensured consistent width and vertical alignment */}
                                             <div className="flex space-x-3 flex-shrink-0 items-center" style={{ width: '192px' }}> 
                                                 {product.images && product.images.length > 0 && (
                                                     <button
