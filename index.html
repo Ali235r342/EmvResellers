@@ -134,6 +134,7 @@
                     name: 'Cardpeak',
                     description: 'CardPeak is free and open source software that is used to read and display data from chip-based (EMV) cards using a smart card reader. It’s typically used for testing, verifying, or analyzing card information in environments like payment development or security research.',
                     price: 0.00,
+                    size: '6.4MB', // Added size
                     images: [
                         'https://i.imgur.com/Tr1njo5.png', // New Cardpeak image 1
                         'https://i.imgur.com/I7E1tV0.png', // New Cardpeak image 2
@@ -145,6 +146,7 @@
                     name: 'X2 Allinone',
                     description: 'X2 Allinone is software used to generate, edit, and manage EMV chip card data, including track data and cryptographic elements. It\'s typically used for testing and developing EMV card systems, such as verifying how chip data responds during transactions.',
                     price: 7.99,
+                    size: '21.1MB', // Added size
                     images: [
                         'https://i.imgur.com/VImciqR.png', // X2 Allinone image 1
                         'https://i.imgur.com/6TAbQBX.png',  // X2 Allinone image 2
@@ -157,6 +159,7 @@
                     name: 'ARQC Gen',
                     description: 'ARQC Gen is software used to generate ARQC (Authorization Request Cryptogram) values for EMV chip cards. It’s typically used for testing and simulating EMV transaction behavior in payment system development and security research.',
                     price: 6.99,
+                    size: '72KB', // Added size
                     images: [
                         'https://i.imgur.com/B945U4Q.png' // Updated ARQC Gen image
                     ]
@@ -166,6 +169,7 @@
                     name: 'ATR Tool',
                     description: 'ATR Tool is software used to read and analyze the ATR (Answer to Reset) from smart cards. It helps identify the card type, supported protocols, and communication parameters, and is commonly used in smart card development, testing, and debugging.',
                     price: 4.99,
+                    size: '625KB', // Added size
                     images: [
                         'https://i.imgur.com/HtvRz5i.jpeg' // Updated ATR Tool image
                     ]
@@ -175,6 +179,7 @@
                     name: 'IST Files',
                     description: 'IST files are data files used to store EMV card information, such as track data, chip data, and cryptographic values. They are used in EMV software to load, manage, and simulate card profiles during card testing or development.',
                     price: 4.99,
+                    size: '19.2MB', // Added size
                     images: [
                         'https://i.imgur.com/Qm5FU7t.jpeg' // Updated IST Files image
                     ]
@@ -184,6 +189,7 @@
                     name: 'Jcop English',
                     description: 'JCOP English is software used to manage and program JCOP smart cards. It allows users to load applets, configure card settings, and personalize chip data for use in smart card development, testing, and secure application deployment.',
                     price: 3.99,
+                    size: '4.9MB', // Added size
                     images: [
                         'https://i.imgur.com/VhjQ1lw.png' // Updated Jcop English image
                     ]
@@ -296,7 +302,7 @@
 
 
             const termsOfServiceContent = `
-                 EmvResellers Terms of Service
+                ## EmvResellers Terms of Service
 
                 **Last Updated:** June 11, 2025
 
@@ -342,7 +348,7 @@
             `;
 
             const privacyPolicyContent = `
-                 EmvResellers Privacy Policy
+                ## EmvResellers Privacy Policy
 
                 **Last Updated:** June 11, 2025
 
@@ -387,7 +393,7 @@
                 We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date. We encourage you to review this policy periodically.
 
                 **10. Contact**
-                For any questions regarding this Privacy Policy or your data, please contact us via Telegram as indicated on our website.
+                For any questions regarding this Privacy Policy or your data, please contact us via our Telegram channel as indicated on our website.
             `;
 
             return (
@@ -474,9 +480,13 @@
                                 {softwareProducts.map(product => (
                                     <div key={product.id} className="bg-gray-800 p-6 md:p-8 rounded-xl shadow-lg border border-gray-700 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1"> 
                                         <h3 className="text-2xl md:text-3xl font-semibold text-yellow-300 mb-3 md:mb-4">{product.name}</h3> 
+                                        {/* Added software size display */}
+                                        {product.size && (
+                                            <p className="text-gray-400 text-sm mb-4">Size: {product.size}</p>
+                                        )}
                                         {/* Added a consistent height to the description for better alignment */}
-                                        <p className="text-gray-300 leading-relaxed mb-4 text-sm md:text-base min-h-[60px] flex items-center">{product.description}</p> 
-                                        <div className="flex items-center justify-between mb-6">
+                                        <p className="text-gray-300 leading-relaxed text-sm md:text-base min-h-[60px] flex items-center">{product.description}</p> 
+                                        <div className="flex items-center justify-between mt-4"> {/* Adjusted margin-top */}
                                             <span className="text-xl md:text-2xl font-bold text-yellow-400 mr-4 whitespace-nowrap"> 
                                                 {product.price === 0.00 ? 'Free' : `$${product.price.toFixed(2)}`}
                                             </span>
