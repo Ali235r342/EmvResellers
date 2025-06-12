@@ -275,12 +275,12 @@
                     answer: "Our software products are intended for legal purposes only, such as testing, development, and research in secure environments. Users are responsible for ensuring their use complies with all applicable laws and regulations."
                 },
                 {
-                    question: "What payment methods do we accept?",
+                    question: "What payment methods do we accept?", // NEW FAQ entry
                     answer: "For your security and anonymity, we exclusively accept cryptocurrency payments. This ensures fast, secure, and private transactions for all our customers. We support various cryptocurrencies. Specific payment instructions will be provided during checkout. Please note that prices are subject to change based on cryptocurrency market fluctuations."
                 }
             ];
 
-            // Reorder FAQ items to place "What payment methods do you accept?" as the 2nd one.
+            // Reorder FAQ items to place "What payment methods do we accept?" as the 2nd one.
             const reorderedFaqItems = [
                 faqItems[0], // What types of EMV software do you offer?
                 faqItems[5], // What payment methods do you accept? (NEW item)
@@ -402,8 +402,8 @@
                         {/* Container with responsive padding for better mobile fit */}
                         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
                             {/* Logo and Title */}
-                            <div className="flex items-center space-x-2 mb-4 sm:mb-0">
-                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-18 sm:h-20 w-auto rounded-full" /> 
+                            <div className="flex flex-col sm:flex-row items-center space-x-2 mb-4 sm:mb-0 text-center sm:text-left"> {/* Added text-center for mobile */}
+                                <img src="https://i.imgur.com/uGwKStG.png" alt="EmvResellers Logo" className="h-14 sm:h-16 w-auto rounded-full" /> {/* Adjusted logo size */}
                                 <h1 className="text-2xl sm:text-3xl font-bold text-yellow-400">EmvResellers</h1> 
                             </div>
                             {/* Navigation and Cart Icon */}
