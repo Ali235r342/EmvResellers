@@ -145,15 +145,14 @@
                 const initializeFirebase = async () => {
                     try {
                         // Your web app's Firebase configuration (copied directly from Firebase Console)
-                        // This has been updated with the apiKey you provided.
                         const firebaseConfig = {
-                            apiKey: "AIzaSyA1IWKWdFEdFeHavyc6Sycf22vVUnwdNKo", //
-                            authDomain: "emvsells-ac9a5.firebaseapp.com", //
-                            projectId: "emvsells-ac9a5", //
-                            storageBucket: "emvsells-ac9a5.firebasestorage.app", //
-                            messagingSenderId: "883386311812", //
-                            appId: "1:883386311012:web:cad481a3ab9cd6e8a4da71", // CORRECTED App ID based on your provided value
-                            measurementId: "G-1SECW7N9LF" // Optional, if you're using Analytics //
+                            apiKey: "AIzaSyBI8_wdsWttZ-6_uMMhtb82tEZGZquRIiM", // NEWLY PROVIDED API KEY
+                            authDomain: "emvsells-ac9a5.firebaseapp.com",
+                            projectId: "emvsells-ac9a5",
+                            storageBucket: "emvsells-ac9a5.firebasestorage.app",
+                            messagingSenderId: "883386311812",
+                            appId: "1:883386311012:web:cad481a3ab9cd6e8a4da71",
+                            measurementId: "G-1SECW7N9LF"
                         };
 
                         // Initialize Firebase app
@@ -164,7 +163,7 @@
                         setDb(firestore);
                         setAuth(authInstance);
 
-                        console.log("Frontend: Firebase app initialized successfully."); //
+                        console.log("Frontend: Firebase app initialized successfully.");
 
                         // Listen for authentication state changes
                         const unsubscribe = firebase.onAuthStateChanged(authInstance, async (user) => {
@@ -179,9 +178,9 @@
                                     setUserId(anonUserCred.user.uid);
                                     console.log("Frontend: Firebase Auth: Signed in anonymously with ID:", anonUserCred.user.uid);
                                 } catch (authError) {
-                                    console.error("Frontend: Firebase Auth Error during anonymous sign-in:", authError.message, authError.code); //
+                                    console.error("Frontend: Firebase Auth Error during anonymous sign-in:", authError.message, authError.code);
                                     setUserId(null); // Explicitly set to null if auth fails
-                                    showNotification(`Authentication failed: ${authError.message}. Order history may not save.`); //
+                                    showNotification(`Authentication failed: ${authError.message}. Order history may not save.`);
                                 }
                             }
                             setIsAuthReady(true); // Mark authentication state as checked/ready
@@ -400,7 +399,7 @@
                 } catch (error) {
                     console.error("Checkout process error on frontend:", error.message, error);
                     showNotification(`There was an error during checkout: ${error.message}. Please try again.`);
-                    // If an error occurred *after* initial Firestore write but *before* backend response
+                    // If an<seg_8>occurred *after* initial Firestore write but *before* backend response
                     // or other network issues, the order might be stuck at 'pending_payment'.
                     // You might want more specific handling here to update its status based on where the error occurred.
                 } finally {
