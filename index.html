@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmvResellers</title>
-    <!-- Tailwind CSS CDN - This loads Tailwind utility classes directly -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts - Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS for global styles and animations -->
     <style>
         body {
             font-family: 'Outfit', sans-serif;
@@ -92,11 +89,9 @@
 <body class="bg-gray-900">
     <div id="root"></div>
 
-    <!-- React and ReactDOM CDNs -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Firebase SDK (latest CDN links) -->
     <script type="module">
         // Import specific Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -107,11 +102,9 @@
         window.firebase = { initializeApp, getAuth, signInAnonymously, onAuthStateChanged, getFirestore, collection, addDoc, query, onSnapshot, doc, updateDoc, serverTimestamp };
     </script>
     
-    <!-- React DOM specific for createRoot (React 18) -->
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
 
-    <!-- Your React App Code -->
     <script type="text/babel">
         // Main App Component
         function App() {
@@ -154,13 +147,13 @@
                         // Your web app's Firebase configuration (copied directly from Firebase Console)
                         // This has been updated with the apiKey you provided.
                         const firebaseConfig = {
-                            apiKey: "AIzaSyA1IWKWdFEdFeHavyc6Sycf22vVUnwdNKo",
-                            authDomain: "emvsells-ac9a5.firebaseapp.com",
-                            projectId: "emvsells-ac9a5",
-                            storageBucket: "emvsells-ac9a5.firebasestorage.app",
-                            messagingSenderId: "883386311812",
-                            appId: "1:883386311012:web:d5b5c3a5d430d1a9a4da71",
-                            measurementId: "G-1SECW7N9LF" // Optional, if you're using Analytics
+                            apiKey: "AIzaSyA1IWKWdFEdFeHavyc6Sycf22vVUnwdNKo", //
+                            authDomain: "emvsells-ac9a5.firebaseapp.com", //
+                            projectId: "emvsells-ac9a5", //
+                            storageBucket: "emvsells-ac9a5.firebasestorage.app", //
+                            messagingSenderId: "883386311812", //
+                            appId: "1:883386311012:web:cad481a3ab9cd6e8a4da71", // CORRECTED App ID based on your provided value
+                            measurementId: "G-1SECW7N9LF" // Optional, if you're using Analytics //
                         };
 
                         // Initialize Firebase app
@@ -171,7 +164,7 @@
                         setDb(firestore);
                         setAuth(authInstance);
 
-                        console.log("Frontend: Firebase app initialized successfully.");
+                        console.log("Frontend: Firebase app initialized successfully."); //
 
                         // Listen for authentication state changes
                         const unsubscribe = firebase.onAuthStateChanged(authInstance, async (user) => {
@@ -186,9 +179,9 @@
                                     setUserId(anonUserCred.user.uid);
                                     console.log("Frontend: Firebase Auth: Signed in anonymously with ID:", anonUserCred.user.uid);
                                 } catch (authError) {
-                                    console.error("Frontend: Firebase Auth Error during anonymous sign-in:", authError.message, authError.code);
+                                    console.error("Frontend: Firebase Auth Error during anonymous sign-in:", authError.message, authError.code); //
                                     setUserId(null); // Explicitly set to null if auth fails
-                                    showNotification(`Authentication failed: ${authError.message}. Order history may not save.`);
+                                    showNotification(`Authentication failed: ${authError.message}. Order history may not save.`); //
                                 }
                             }
                             setIsAuthReady(true); // Mark authentication state as checked/ready
