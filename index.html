@@ -100,8 +100,8 @@
     <script type="module">
         // Import specific Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"; // Removed signInWithCustomToken as it's not used directly here
-        import { getFirestore, collection, addDoc, query, onSnapshot, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; // Removed orderBy as it was removed from query
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         // Expose Firebase modules globally for the Babel script
         window.firebase = { initializeApp, getAuth, signInAnonymously, onAuthStateChanged, getFirestore, collection, addDoc, query, onSnapshot, doc, updateDoc, serverTimestamp };
@@ -152,6 +152,7 @@
                 const initializeFirebase = async () => {
                     try {
                         // Your web app's Firebase configuration (copied directly from Firebase Console)
+                        // This has been updated with the apiKey you provided.
                         const firebaseConfig = {
                             apiKey: "AIzaSyA1IWKWdFEdFeHavyc6Sycf22vVUnwdNKo",
                             authDomain: "emvsells-ac9a5.firebaseapp.com",
@@ -170,7 +171,7 @@
                         setDb(firestore);
                         setAuth(authInstance);
 
-                        console.log("Frontend: Firebase app initialized.");
+                        console.log("Frontend: Firebase app initialized successfully.");
 
                         // Listen for authentication state changes
                         const unsubscribe = firebase.onAuthStateChanged(authInstance, async (user) => {
