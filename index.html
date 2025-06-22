@@ -152,10 +152,21 @@
             React.useEffect(() => {
                 const initializeFirebase = async () => {
                     try {
-                        // Global variables provided by the Canvas environment for Firebase setup
-                        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-                        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                        // Your web app's Firebase configuration (copied directly from Firebase Console)
+                        const firebaseConfig = {
+                            apiKey: "AIzaSyA1IWKWdFEdFeHavyc6Sycf22vVUnwdNKo",
+                            authDomain: "emvsells-ac9a5.firebaseapp.com",
+                            projectId: "emvsells-ac9a5",
+                            storageBucket: "emvsells-ac9a5.firebasestorage.app",
+                            messagingSenderId: "883386311812",
+                            appId: "1:883386311012:web:d5b5c3a5d430d1a9a4da71",
+                            measurementId: "G-1SECW7N9LF" // Optional, if you're using Analytics
+                        };
+
+                        // Use a fixed appId for Firestore path, matching your backend's default
+                        // If your backend or Firestore rules use a different base ID than the Firebase project ID,
+                        // you would set it here. For now, we'll use the projectId as the appId for simplicity.
+                        const currentAppId = firebaseConfig.projectId; // Or hardcode 'default-app-id' if that's what your backend uses for `__app_id`
 
                         // Initialize Firebase app
                         const app = firebase.initializeApp(firebaseConfig);
@@ -171,19 +182,13 @@
                                 // User is signed in (either anonymously or via custom token)
                                 setUserId(user.uid);
                             } else {
-                                // No user is signed in, attempt anonymous or custom token sign-in
+                                // No user is signed in, attempt anonymous sign-in
                                 try {
-                                    if (initialAuthToken) {
-                                        // Use provided custom token for sign-in
-                                        await firebase.signInWithCustomToken(authInstance, initialAuthToken);
-                                    } else {
-                                        // Sign in anonymously if no custom token is provided
-                                        await firebase.signInAnonymously(authInstance);
-                                    }
+                                    // Using signInAnonymously as you mentioned an anonymous/simple account system
+                                    await firebase.signInAnonymously(authInstance);
                                 } catch (error) {
-                                    console.error("Firebase Auth error during sign-in:", error);
+                                    console.error("Firebase Auth error during anonymous sign-in:", error);
                                     // Fallback: If anonymous sign-in fails, assign a random UUID
-                                    // This means data won't persist securely but the app can still run.
                                     setUserId(crypto.randomUUID());
                                     showNotification("Could not authenticate. Order history may not save.");
                                 }
@@ -195,11 +200,11 @@
                         return () => unsubscribe();
 
                     } catch (error) {
-                        console.error("Failed to initialize Firebase:", error);
+                        console.error("Failed to initialize Firebase on frontend:", error);
                         // Fallback if Firebase initialization itself fails (e.g., bad config)
-                        setUserId(crypto.randomUUID());
+                        setUserId(crypto.randomUUID()); // Assign a random ID so the app can still function somewhat
                         setIsAuthReady(true);
-                        showNotification("Firebase initialization failed. Order history may not save.");
+                        showNotification("Firebase initialization failed on frontend. Order history may not save.");
                     }
                 };
 
@@ -210,14 +215,10 @@
             React.useEffect(() => {
                 // Ensure Firebase is initialized and a userId is available before attempting to fetch
                 if (isAuthReady && db && userId) {
-                    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                    // Reference to the user's specific orders collection in Firestore
-                    const ordersCollectionRef = firebase.collection(db, `artifacts/${appId}/users/${userId}/orders`);
+                    // Use the Firebase project ID as the base app ID for Firestore paths
+                    const currentAppId = auth.app.options.projectId; 
+                    const ordersCollectionRef = firebase.collection(db, `artifacts/${currentAppId}/users/${userId}/orders`);
                     
-                    // Create a query to get orders. Firestore requires an index for orderBy.
-                    // If you encounter an error about missing indexes, you'll need to create one in Firebase Console.
-                    // For now, let's assume `timestamp` exists and is indexed or we sort client-side.
-                    // Per instructions, for cases that may cause index issues, sort in memory.
                     const q = firebase.query(ordersCollectionRef);
 
                     // Set up a real-time listener for the orders collection
@@ -237,7 +238,7 @@
                     // Cleanup the snapshot listener when the component unmounts or dependencies change
                     return () => unsubscribe();
                 }
-            }, [isAuthReady, db, userId]); // Re-run when auth state, db, or userId changes
+            }, [isAuthReady, db, userId, auth]); // Added 'auth' as dependency as it's used to get projectId
 
             // Function to show a temporary notification
             const showNotification = (message) => {
@@ -318,7 +319,10 @@
 
                 setIsCheckoutLoading(true); // Show loading spinner
 
-                // Prepare order data to be sent to a hypothetical backend
+                // Use the Firebase project ID as the base app ID for Firestore paths
+                const currentAppId = auth.app.options.projectId;
+
+                // Prepare order data to be sent to backend AND stored in Firestore
                 const orderData = {
                     items: cart.map(item => ({
                         id: item.id,
@@ -327,57 +331,47 @@
                         quantity: item.quantity,
                     })),
                     total: totalPrice,
-                    // These fields are for Firestore but also could be passed to backend
                     date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
                     time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-                    timestamp: Date.now(), // Milliseconds since epoch for sorting
+                    timestamp: firebase.serverTimestamp(), // Use Firestore server timestamp
                     status: 'pending_payment', // Initial status in Firestore
                     userId: userId, // Associate order with current user
                 };
 
                 try {
                     // --- STEP 1: Add order to Firestore with 'pending_payment' status ---
-                    // This stores the order immediately, even before payment is confirmed.
-                    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                    const ordersCollectionRef = firebase.collection(db, `artifacts/${appId}/users/${userId}/orders`);
+                    const ordersCollectionRef = firebase.collection(db, `artifacts/${currentAppId}/users/${userId}/orders`);
                     const docRef = await firebase.addDoc(ordersCollectionRef, orderData);
                     const firestoreOrderId = docRef.id; // Get the ID generated by Firestore
 
                     console.log("Order added to Firestore with ID:", firestoreOrderId);
 
-                    // --- STEP 2: Simulate Backend Call for NOWPayments Invoice ---
-                    // In a REAL application, you would make a fetch() call to YOUR OWN backend server here.
-                    // This backend server (e.g., Flask, Node.js, Google Cloud Function) would then:
-                    // 1. Receive the order data (and userId, firestoreOrderId).
-                    // 2. Make an API call to NOWPayments to create an invoice.
-                    //    (e.g., using NOWPayments API Key which MUST NOT be exposed in frontend)
-                    // 3. Get the NOWPayments invoice URL and unique payment ID.
-                    // 4. Return this information back to the frontend.
-                    // 5. Set up a webhook listener to receive payment updates from NOWPayments.
-                    // 6. Update the order status in Firestore (using firestoreOrderId) when payment is confirmed.
+                    // --- STEP 2: Make a REAL Backend Call to your deployed server ---
+                    // REMEMBER TO REPLACE THIS URL WITH YOUR ACTUAL DEPLOYED BACKEND URL!
+                    const backendUrl = "http://localhost:5000/create-payment-invoice"; // <<< REPLACE THIS FOR DEPLOYMENT
+                    console.log(`Calling backend: ${backendUrl} with order:`, { ...orderData, firestoreOrderId });
 
-                    console.log("Simulating backend call to NOWPayments API...");
-                    const simulatedBackendResponse = await new Promise(resolve => setTimeout(() => {
-                        // Dummy data for simulation: replace with actual response from your backend
-                        const dummyPaymentUrl = "https://nowpayments.io/invoice/mock_payment_id_12345";
-                        const dummyNowPaymentsInvoiceId = `NOWPAY-${Date.now()}`;
-                        resolve({
-                            success: true,
-                            payment_url: dummyPaymentUrl,
-                            nowpayments_invoice_id: dummyNowPaymentsInvoiceId,
-                            message: "Invoice created successfully."
-                        });
-                    }, 2000)); // Simulate network latency
+                    const response = await fetch(backendUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            orderData: { ...orderData, firestoreOrderId: firestoreOrderId }, // Pass the Firestore ID
+                            userId: userId,
+                            appId: currentAppId // Pass the app ID to the backend for path construction
+                        }),
+                    });
 
-                    if (simulatedBackendResponse.success) {
-                        // --- STEP 3: Update Firestore order with NOWPayments details ---
-                        // Store the NOWPayments invoice ID and URL in the Firestore order
-                        // This links your internal order to the payment gateway's record.
-                        const orderDocRef = firebase.doc(db, `artifacts/${appId}/users/${userId}/orders/${firestoreOrderId}`);
+                    const backendResult = await response.json();
+
+                    if (response.ok && backendResult.success) { // Check both HTTP status and custom 'success' field from backend
+                        // --- STEP 3: Update Firestore order with NOWPayments details from backend response ---
+                        const orderDocRef = firebase.doc(db, `artifacts/${currentAppId}/users/${userId}/orders/${firestoreOrderId}`);
                         await firebase.updateDoc(orderDocRef, {
-                            nowpayments_invoice_id: simulatedBackendResponse.nowpayments_invoice_id,
-                            nowpayments_payment_url: simulatedBackendResponse.payment_url,
-                            status: 'awaiting_payment' // Update status to reflect payment pending
+                            nowpayments_invoice_id: backendResult.nowpayments_payment_id,
+                            nowpayments_payment_url: backendResult.payment_url,
+                            status: 'awaiting_payment' // Update status to reflect payment pending on NOWPayments
                         });
                         
                         setCart([]); // Clear the cart
@@ -386,22 +380,24 @@
                         setPaymentModal({
                             visible: true,
                             message: `Payment initiated for Order ID: ${firestoreOrderId}. Please complete the payment on the next page.`,
-                            url: simulatedBackendResponse.payment_url
+                            url: backendResult.payment_url
                         });
-                        // Optional: Automatically open the payment URL
-                        window.open(simulatedBackendResponse.payment_url, '_blank');
+                        window.open(backendResult.payment_url, '_blank'); // Open NOWPayments page
 
                     } else {
                         // If backend call fails, update Firestore status to indicate an issue
-                        const orderDocRef = firebase.doc(db, `artifacts/${appId}/users/${userId}/orders/${firestoreOrderId}`);
-                        await firebase.updateDoc(orderDocRef, { status: 'payment_failed_initiation' });
-                        showNotification(`Payment initiation failed: ${simulatedBackendResponse.message || 'Unknown error'}`);
+                        const orderDocRef = firebase.doc(db, `artifacts/${currentAppId}/users/${userId}/orders/${firestoreOrderId}`);
+                        const errorMessage = backendResult.message || "Unknown error from backend.";
+                        await firebase.updateDoc(orderDocRef, { status: 'payment_failed_initiation', error_message: errorMessage });
+                        showNotification(`Payment initiation failed: ${errorMessage}`);
                     }
 
                 } catch (error) {
-                    console.error("Checkout process error:", error);
+                    console.error("Checkout process error on frontend:", error);
                     showNotification("There was an error during checkout. Please try again.");
-                    // You might want to update the order status in Firestore to 'failed' here as well
+                    // If an error occurred *after* initial Firestore write but *before* backend response
+                    // or other network issues, the order might be stuck at 'pending_payment'.
+                    // More robust error handling would update its status here as well.
                 } finally {
                     setIsCheckoutLoading(false); // Hide loading spinner
                 }
