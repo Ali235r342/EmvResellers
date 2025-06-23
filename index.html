@@ -140,10 +140,10 @@
             const [currentLegalTab, setCurrentLegalTab] = React.useState('terms'); // 'terms' or 'privacy'
             // State for order history (now fetched from Firestore)
             const [orderHistory, setOrderHistory] = React.useState([]);
-            // State for the embedded payment modal
-            const [isEmbeddedPaymentOpen, setIsEmbeddedPaymentOpen] = React.useState(false); // New state for embedded payment
-            const [embeddedPaymentUrl, setEmbeddedPaymentUrl] = React.useState(''); // New state for payment URL
-            const [embeddedOrderId, setEmbeddedOrderId] = React.useState(''); // New state for order ID in payment modal
+            // State for the embedded payment modal (NEW)
+            const [isEmbeddedPaymentOpen, setIsEmbeddedPaymentOpen] = React.useState(false); 
+            const [embeddedPaymentUrl, setEmbeddedPaymentUrl] = React.useState(''); 
+            const [embeddedOrderId, setEmbeddedOrderId] = React.useState(''); 
 
             // State for loading indicator during checkout
             const [isCheckoutLoading, setIsCheckoutLoading] = React.useState(false);
@@ -157,7 +157,7 @@
                     try {
                         // Your web app's Firebase configuration (copied directly from Firebase Console)
                         const firebaseConfig = {
-                            apiKey: "AIzaSyBI8_wdsWttZ-6_uMMhtb82tEZGZquRIiM",
+                            apiKey: "AIzaSyBI8_wdsWttZ-6_uMMhtb82tEZGZquRIiM", // NEWLY PROVIDED API KEY
                             authDomain: "emvsells-ac9a5.firebaseapp.com",
                             projectId: "emvsells-ac9a5",
                             storageBucket: "emvsells-ac9a5.firebasestorage.app",
@@ -392,10 +392,10 @@
                         setCart([]); // Clear the cart
                         setIsCartOpen(false); // Close cart modal
 
-                        // Open the embedded payment modal instead of redirecting
+                        // NEW: Open the embedded payment modal instead of redirecting
                         setEmbeddedPaymentUrl(backendResult.payment_url);
                         setEmbeddedOrderId(firestoreOrderId);
-                        setIsEmbeddedPaymentOpen(true); // Open the new embedded payment modal
+                        setIsEmbeddedPaymentOpen(true); 
 
                     } else {
                         // If backend reports non-success, update Firestore status to indicate an issue
@@ -645,7 +645,7 @@
                 Our website is not directed at children under the age of 18, and we do not knowingly collect any information from children.
 
                 **9. Changes to this Privacy Policy**
-                We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date. We encourage you to review this policy periodically.
+                We may update this Privacy Policy from time to time. Any changes will be posted on this page with an Updated "Last Updated" date. We encourage you to review this policy periodically.
 
                 **10. Contact**
                 For any questions regarding this Privacy Policy or your data, please contact us via our Telegram channel as indicated on our website.
