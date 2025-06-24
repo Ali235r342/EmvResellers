@@ -356,7 +356,8 @@
 
                     // --- STEP 2: Make a REAL Backend Call to your deployed server ---
                     // REMEMBER TO REPLACE THIS URL WITH YOUR ACTUAL DEPLOYED BACKEND URL!
-                    const backendUrl = "http://localhost:5000/create-payment-invoice"; // <<< REPLACE THIS FOR DEPLOYMENT
+                    // This URL must be your live ngrok URL /create-payment-invoice
+                    const backendUrl = "https://faa9-2601-205-4a7e-b6b9-d8c8-b61c-1bd8-b36c.ngrok-free.app/create-payment-invoice"; // <--- UPDATED BACKEND URL
                     console.log(`Checkout: Calling backend: ${backendUrl} with order:`, { ...orderData, firestoreOrderId });
 
                     const response = await fetch(backendUrl, {
@@ -818,9 +819,16 @@
 
                                 {/* Content Area */}
                                 <div className="flex-grow overflow-y-auto custom-scrollbar p-2">
-                                    <div className="text-gray-300 text-sm md:text-base leading-relaxed"
-                                        dangerouslySetInnerHTML={{ __html: currentLegalTab === 'terms' ? termsOfServiceContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') : privacyPolicyContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') }}>
-                                    </div>
+                                    {currentLegalTab === 'terms' && (
+                                        <div className="text-gray-300 text-sm md:text-base leading-relaxed"
+                                            dangerouslySetInnerHTML={{ __html: termsOfServiceContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') }}>
+                                        </div>
+                                    )}
+                                    {currentLegalTab === 'privacy' && (
+                                        <div className="text-gray-300 text-sm md:text-base leading-relaxed"
+                                            dangerouslySetInnerHTML={{ __html: privacyPolicyContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') }}>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -837,34 +845,6 @@
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
                             </svg>
                         </button>
-                    )}
-
-                    {/* Embedded Payment Modal (New) */}
-                    {isEmbeddedPaymentOpen && (
-                        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-50 p-4">
-                            <div className="bg-gray-800 rounded-lg shadow-xl w-full max-w-sm md:max-w-xl lg:max-w-2xl p-5 md:p-6 relative flex flex-col h-5/6">
-                                <h2 className="text-2xl md:text-3xl font-bold text-yellow-400 mb-4 text-center">Complete Your Payment</h2>
-                                <p className="text-gray-300 text-base md:text-lg mb-4 text-center">Order ID: <span className="font-semibold text-yellow-300">{embeddedOrderId}</span></p>
-                                
-                                {/* Iframe to load NOWPayments */}
-                                {embeddedPaymentUrl && (
-                                    <iframe 
-                                        src={embeddedPaymentUrl} 
-                                        title={`NOWPayments for Order ${embeddedOrderId}`}
-                                        className="nowpayments-iframe flex-grow rounded-md"
-                                        frameBorder="0" 
-                                        allowTransparency="true"
-                                    ></iframe>
-                                )}
-
-                                <button
-                                    onClick={() => setIsEmbeddedPaymentOpen(false)}
-                                    className="bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-lg hover:bg-yellow-600 transition duration-300 mt-4 self-center"
-                                >
-                                    Close Payment
-                                </button>
-                            </div>
-                        </div>
                     )}
                 </div>
             );
