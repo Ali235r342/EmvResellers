@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmvResellers</title>
+    <!-- Tailwind CSS CDN - This loads Tailwind utility classes directly -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Google Fonts - Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Custom CSS for global styles and animations -->
     <style>
         body {
             font-family: 'Outfit', sans-serif;
@@ -84,27 +87,40 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Styles for the iframe within the modal */
+        .nowpayments-iframe {
+            min-width: 320px; /* Adjust as needed */
+            min-height: 480px; /* Adjust as needed */
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body class="bg-gray-900">
     <div id="root"></div>
 
+    <!-- React and ReactDOM CDNs -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+    <!-- Firebase SDK (latest CDN links) -->
     <script type="module">
         // Import specific Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, onSnapshot, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+        // Added deleteDoc, getDocs for client-side deletion (though backend call is recommended)
+        import { getFirestore, collection, addDoc, query, onSnapshot, doc, updateDoc, deleteDoc, getDocs, writeBatch, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; 
+        
         // Expose Firebase modules globally for the Babel script
-        window.firebase = { initializeApp, getAuth, signInAnonymously, onAuthStateChanged, getFirestore, collection, addDoc, query, onSnapshot, doc, updateDoc, serverTimestamp };
+        window.firebase = { initializeApp, getAuth, signInAnonymously, onAuthStateChanged, getFirestore, collection, addDoc, query, onSnapshot, doc, updateDoc, deleteDoc, getDocs, writeBatch, serverTimestamp }; // Added deleteDoc, getDocs, writeBatch
     </script>
     
+    <!-- React DOM specific for createRoot (React 18) -->
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
 
+    <!-- Your React App Code -->
     <script type="text/babel">
         // Main App Component
         function App() {
@@ -132,8 +148,14 @@
             const [currentLegalTab, setCurrentLegalTab] = React.useState('terms'); // 'terms' or 'privacy'
             // State for order history (now fetched from Firestore)
             const [orderHistory, setOrderHistory] = React.useState([]);
-            // State for payment modal (for displaying NOWPayments URL)
-            const [paymentModal, setPaymentModal] = React.useState({ visible: false, message: '', url: null });
+            // State for the embedded payment modal (NEW)
+            const [isEmbeddedPaymentOpen, setIsEmbeddedPaymentOpen] = React.useState(false); 
+            const [embeddedPaymentUrl, setEmbeddedPaymentUrl] = React.useState(''); 
+            const [embeddedOrderId, setEmbeddedOrderId] = React.useState(''); 
+            // State for Clear Order History Confirmation (NEW)
+            const [isClearHistoryConfirmOpen, setIsClearHistoryConfirmOpen] = React.useState(false);
+            const [isClearingHistory, setIsClearingHistory] = React.useState(false);
+
             // State for loading indicator during checkout
             const [isCheckoutLoading, setIsCheckoutLoading] = React.useState(false);
             // State for scroll-to-top button visibility
@@ -315,7 +337,6 @@
                 setIsCheckoutLoading(true); // Show loading spinner
 
                 // Use the Firebase project ID as the base app ID for Firestore paths
-                // This 'auth.app.options.projectId' comes directly from your frontend's firebaseConfig
                 const currentAppId = auth.app.options.projectId;
 
                 // Prepare order data to be sent to backend AND stored in Firestore
@@ -344,8 +365,9 @@
                     console.log("Checkout: Order added to Firestore with ID:", firestoreOrderId);
 
                     // --- STEP 2: Make a REAL Backend Call to your deployed server ---
-                    // REMEMBER TO REPLACE THIS URL WITH YOUR ACTUAL DEPLOYED BACKEND URL!
-                    const backendUrl = "http://localhost:5000/create-payment-invoice"; // <<< REPLACE THIS FOR DEPLOYMENT
+                    // This URL must be your live ngrok URL /create-payment-invoice if running locally with ngrok
+                    // Replace "http://localhost:5000" with your actual ngrok forwarding URL
+                    const backendUrl = "https://faa9-2601-205-4a7e-b6b9-d8c8-b61c-1bd8-b36c.ngrok-free.app/create-payment-invoice"; 
                     console.log(`Checkout: Calling backend: ${backendUrl} with order:`, { ...orderData, firestoreOrderId });
 
                     const response = await fetch(backendUrl, {
@@ -381,12 +403,10 @@
                         setCart([]); // Clear the cart
                         setIsCartOpen(false); // Close cart modal
 
-                        setPaymentModal({
-                            visible: true,
-                            message: `Payment initiated for Order ID: ${firestoreOrderId}. Please complete the payment on the next page.`,
-                            url: backendResult.payment_url
-                        });
-                        window.open(backendResult.payment_url, '_blank'); // Open NOWPayments page
+                        // NEW: Open the embedded payment modal instead of redirecting (MODIFIED)
+                        setEmbeddedPaymentUrl(backendResult.payment_url);
+                        setEmbeddedOrderId(firestoreOrderId);
+                        setIsEmbeddedPaymentOpen(true); 
 
                     } else {
                         // If backend reports non-success, update Firestore status to indicate an issue
@@ -399,14 +419,62 @@
                 } catch (error) {
                     console.error("Checkout process error on frontend:", error.message, error);
                     showNotification(`There was an error during checkout: ${error.message}. Please try again.`);
-                    // If an<seg_8>occurred *after* initial Firestore write but *before* backend response
-                    // or other network issues, the order might be stuck at 'pending_payment'.
-                    // You might want more specific handling here to update its status based on where the error occurred.
                 } finally {
                     setIsCheckoutLoading(false); // Hide loading spinner
                 }
             };
 
+            // Function to handle clearing order history (NEW)
+            const handleClearHistoryClick = () => {
+                if (orderHistory.length === 0) {
+                    showNotification("Order history is already empty.");
+                    return;
+                }
+                setIsClearHistoryConfirmOpen(true); // Open confirmation modal
+            };
+
+            // Function to confirm and clear order history (NEW)
+            const confirmClearOrderHistory = async () => {
+                if (!db || !userId || !auth) {
+                    showNotification("Authentication not ready. Cannot clear history.");
+                    setIsClearHistoryConfirmOpen(false);
+                    return;
+                }
+                setIsClearingHistory(true); // Show loading state
+
+                try {
+                    const currentAppId = auth.app.options.projectId;
+                    
+                    // Call backend endpoint to clear history (RECOMMENDED FOR SECURITY/SCALABILITY)
+                    // You would need to implement this endpoint in your app.py
+                    const clearBackendUrl = "http://localhost:5000/clear-user-orders"; // Replace with your live backend URL for this endpoint
+                    const response = await fetch(clearBackendUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: userId, appId: currentAppId })
+                    });
+
+                    if (!response.ok) {
+                        const errorBody = await response.json().catch(() => ({ message: "Unknown backend error" }));
+                        throw new Error(`Failed to clear history on backend: ${errorBody.message}`);
+                    }
+
+                    const result = await response.json();
+                    if (result.success) {
+                        showNotification("Order history erased permanently!");
+                        setOrderHistory([]); // Clear local state immediately
+                    } else {
+                        throw new Error(result.message || "Failed to clear history.");
+                    }
+
+                } catch (error) {
+                    console.error("Error clearing order history:", error);
+                    showNotification(`Failed to clear history: ${error.message}`);
+                } finally {
+                    setIsClearingHistory(false);
+                    setIsClearHistoryConfirmOpen(false);
+                }
+            };
 
             // Effect to handle scroll-to-top button visibility
             React.useEffect(() => {
@@ -636,7 +704,7 @@
                 Our website is not directed at children under the age of 18, and we do not knowingly collect any information from children.
 
                 **9. Changes to this Privacy Policy**
-                We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date. We encourage you to review this policy periodically.
+                We may update this Privacy Policy from time to time. Any changes will be posted on this page with an Updated "Last Updated" date. We encourage you to review this policy periodically.
 
                 **10. Contact**
                 For any questions regarding this Privacy Policy or your data, please contact us via our Telegram channel as indicated on our website.
@@ -653,8 +721,8 @@
                         </div>
                     )}
 
-                    {/* Checkout Payment Modal */}
-                    {paymentModal.visible && (
+                    {/* Checkout Payment Modal (Original one, kept for reference if needed, but not actively used for new flow) */}
+                    {/* {paymentModal.visible && (
                         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-50 p-4">
                             <div className="bg-gray-800 rounded-lg shadow-xl w-full max-w-sm md:max-w-lg p-5 md:p-6 relative text-center">
                                 <h2 className="text-2xl md:text-3xl font-bold text-yellow-400 mb-4">Payment Required</h2>
@@ -677,7 +745,7 @@
                                 </button>
                             </div>
                         </div>
-                    )}
+                    )} */}
 
                     {/* Header */}
                     <header className="bg-gray-800 shadow-lg py-4">
@@ -834,6 +902,25 @@
                                                 </div>
                                             </div>
                                         ))}
+                                        {/* NEW: Clear Order History Button */}
+                                        {orderHistory.length > 0 && (
+                                            <div className="flex justify-center mt-8">
+                                                <button
+                                                    onClick={handleClearHistoryClick}
+                                                    className="bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    disabled={isClearingHistory}
+                                                >
+                                                    {isClearingHistory ? (
+                                                        <>
+                                                            <div className="loader mr-2 border-white border-t-red-500"></div>
+                                                            Clearing...
+                                                        </>
+                                                    ) : (
+                                                        "Clear Order History"
+                                                    )}
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
                                 )
                             )}
@@ -1052,6 +1139,69 @@
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
                             </svg>
                         </button>
+                    )}
+
+                    {/* Embedded Payment Modal (NEW) */}
+                    {isEmbeddedPaymentOpen && (
+                        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-50 p-4">
+                            <div className="bg-gray-800 rounded-lg shadow-xl w-full max-w-sm md:max-w-xl lg:max-w-2xl p-5 md:p-6 relative flex flex-col h-5/6">
+                                <h2 className="text-2xl md:text-3xl font-bold text-yellow-400 mb-4 text-center">Complete Your Payment</h2>
+                                <p className="text-gray-300 text-base md:text-lg mb-4 text-center">Order ID: <span className="font-semibold text-yellow-300">{embeddedOrderId}</span></p>
+                                
+                                {/* Iframe to load NOWPayments */}
+                                {embeddedPaymentUrl && (
+                                    <iframe 
+                                        src={embeddedPaymentUrl} 
+                                        title={`NOWPayments for Order ${embeddedOrderId}`}
+                                        className="nowpayments-iframe flex-grow rounded-md"
+                                        frameBorder="0" 
+                                        allowTransparency="true"
+                                    ></iframe>
+                                )}
+
+                                <button
+                                    onClick={() => setIsEmbeddedPaymentOpen(false)}
+                                    className="bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-lg hover:bg-yellow-600 transition duration-300 mt-4 self-center"
+                                >
+                                    Close Payment
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Clear History Confirmation Modal (NEW) */}
+                    {isClearHistoryConfirmOpen && (
+                        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-50 p-4">
+                            <div className="bg-gray-800 rounded-lg shadow-xl w-full max-w-sm md:max-w-md p-5 md:p-6 relative text-center">
+                                <h2 className="text-2xl md:text-3xl font-bold text-red-400 mb-4">Confirm Clear History</h2>
+                                <p className="text-gray-300 text-base md:text-lg mb-6">
+                                    Are you sure you want to erase your order history permanently? This action cannot be undone.
+                                </p>
+                                <div className="flex justify-center space-x-4">
+                                    <button
+                                        onClick={confirmClearOrderHistory}
+                                        className="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                                        disabled={isClearingHistory}
+                                    >
+                                        {isClearingHistory ? (
+                                            <>
+                                                <div className="loader mr-2 border-white border-t-red-500"></div>
+                                                Erasing...
+                                            </>
+                                        ) : (
+                                            "Yes, Erase Permanently"
+                                        )}
+                                    </button>
+                                    <button
+                                        onClick={() => setIsClearHistoryConfirmOpen(false)}
+                                        className="bg-gray-600 text-gray-200 font-bold py-2 px-6 rounded-lg hover:bg-gray-500 transition duration-300"
+                                        disabled={isClearingHistory}
+                                    >
+                                        No, Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     )}
                 </div>
             );
